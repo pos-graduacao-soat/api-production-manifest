@@ -24,7 +24,7 @@ spec:
             - name: ORDERS_API_URL
               value: http://api-orders-service:3000.
             - name: REDIS_HOST
-              value: redis://api-production-redis
+              value: api-production-redis
             - name: REDIS_PORT
               value: '6739'
           envFrom:
