@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-production
+  labels:
+    app: api-production
+spec:
+  template:
+    metadata:
+      name: api-production
+      labels:
+        app: api-production
+    spec:
+      containers:
+        - name: api-production-container
+          image: 572978752108.dkr.ecr.us-east-1.amazonaws.com/lanchonete-55/api-production:main
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          env: 
+            - name: ORDERS_API_URL
+              value: http://api-orders-service:3000.
+            - name: REDIS_HOST
+              value: redis://api-production-redis
+            - name: REDIS_PORT
+              value: '6739'
+          envFrom:
+            - secretRef:
+                name: api-production-secrets
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-production

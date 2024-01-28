@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-production-redis
+  labels:
+    app: api-production-redis
+spec:
+  template:
+    metadata:
+      name: api-production-redis
+      labels:
+        app: api-production-redis
+    spec:
+      containers:
+        - name: api-production-redis-container
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          envFrom:
+            - secretRef:
+                name: db-api-production-secrets
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-production-redis
