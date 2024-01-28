@@ -33,4 +33,4 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f secrets && kubectl apply -f db && kubectl apply -f api
-          kubectl rollout restart api/api-production
+          kubectl rollout restart deployment/api-production
